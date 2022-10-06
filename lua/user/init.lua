@@ -179,10 +179,8 @@ local config = {
       ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
       ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
       ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
-      -- ['<C-e>'] = {  "5<C-e>" },
-      -- ['<C-y>'] = {  "5<C-y>" },
-      ['<C-e>'] = {  "<Cmd>lua Scroll('5<C-e>', 0, 1)<CR>", desc = "scroll screen" },
-      ['<C-y>'] = {  "<Cmd>lua Scroll('5<C-y>', 0, 1)<CR>", desc = "scroll screen" },
+      ['<C-e>'] = {  "5<C-e>", desc = "scroll screen" },
+      ['<C-y>'] = {  "5<C-y>", desc = "scroll screen" },
       -- quick save
       -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     },
@@ -196,7 +194,7 @@ local config = {
   plugins = {
     init = {
       -- You can disable default plugins as follows:
-      -- ["goolord/alpha-nvim"] = { disable = true },
+      ["declancm/cinnamon.nvim"] = { disable = true },
 
       -- You can also add new plugins here as well:
       -- Add plugins, the packer syntax without the "use"
@@ -244,11 +242,6 @@ local config = {
       -- end
       return config -- return final config table to use in require("null-ls").setup(config)
     end,
-    cinnamon = {
-      default_keymaps = true,   -- Create default keymaps.
-      extra_keymaps = true,    -- Create extra keymaps.
-      extended_keymaps = true, -- Create extended keymaps.
-    },
     treesitter = { -- overrides `require("treesitter").setup(...)`
       -- ensure_installed = { "lua" },
     },
