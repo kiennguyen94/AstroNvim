@@ -33,6 +33,6 @@ vim.api.nvim_create_autocmd(
 	}
 )
 
-local options = { noremap = true }
-vim.api.nvim_set_keymap("n", "<C-e>", "5<C-e>", options)
-vim.api.nvim_set_keymap("n", "<C-y>", "5<C-y>", options)
+-- local options = { noremap = true }
+-- vim.api.nvim_set_keymap("n", "<C-e>", "5<C-e>", options)
+-- vim.api.nvim_set_keymap("n", "<C-y>", "5<C-y>", options)
