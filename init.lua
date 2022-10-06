@@ -15,3 +15,20 @@ for _, source in ipairs {
 end
 
 astronvim.conditional_func(astronvim.user_plugin_opts("polish", nil, false))
+
+local group = vim.api.nvim_create_augroup("jump_last_position", { clear = true })
+vim.api.nvim_create_autocmd(
+	"BufReadPost",
+	{callback = function()
+			local row, col = unpack(vim.api.nvim_buf_get_mark(0, "\""))
+			if {row, col} ~= {0, 0} then
+				vim.api.nvim_win_set_cursor(0, {row, 0})
+			end
+		end,
+	group = group
+	}
+)
+
+local options = { noremap = true }
+vim.api.nvim_set_keymap("n", "<C-e>", "5<C-e>", options)
+vim.api.nvim_set_keymap("n", "<C-y>", "5<C-y>", options)
