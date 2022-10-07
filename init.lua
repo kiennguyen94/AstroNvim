@@ -19,3 +19,19 @@ astronvim.conditional_func(astronvim.user_plugin_opts("polish", nil, false))
 if vim.fn.has "nvim-0.8" ~= 1 or vim.version().prerelease then
   vim.schedule(function() astronvim.notify("Unsupported Neovim Version! Please check the requirements", "error") end)
 end
+local group = vim.api.nvim_create_augroup("jump_last_position", { clear = true })
+vim.api.nvim_create_autocmd(
+	"BufReadPost",
+	{callback = function()
+			local row, col = unpack(vim.api.nvim_buf_get_mark(0, "\""))
+			if {row, col} ~= {0, 0} then
+				vim.api.nvim_win_set_cursor(0, {row, 0})
+			end
+		end,
+	group = group
+	}
+)
+
+-- local options = { noremap = true }
+-- vim.api.nvim_set_keymap("n", "<C-e>", "5<C-e>", options)
+-- vim.api.nvim_set_keymap("n", "<C-y>", "5<C-y>", options)
