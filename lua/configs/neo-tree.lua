@@ -55,11 +55,6 @@ neotree.setup(astronvim.user_plugin_opts("plugins.neo-tree", {
         "__pycache__",
       },
     },
-    window = {
-      mappings = {
-        ["/"] = "noop"
-      }
-    },
     follow_current_file = true,
     hijack_netrw_behavior = "open_current",
     use_libuv_file_watcher = true,
