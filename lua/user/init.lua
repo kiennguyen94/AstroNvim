@@ -181,6 +181,12 @@ local config = {
       ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
       ['<C-e>'] = { "5<C-e>", desc = "scroll screen" },
       ['<C-y>'] = { "5<C-y>", desc = "scroll screen" },
+      ["<leader>1"] = {"1<C-w>w"},
+      ["<leader>2"] = {"2<C-w>w"},
+      ["<leader>3"] = {"3<C-w>w"},
+      ["<leader>4"] = {"4<C-w>w"},
+      ["<leader>5"] = {"5<C-w>w"},
+      ["<leader>6"] = {"6<C-w>w"},
       -- quick save
       -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     },
