@@ -117,6 +117,7 @@ local config = {
     -- enable servers that you already have installed without mason
     servers = {
       -- "pyright"
+      "clangd"
     },
     -- easily add or disable built in mappings added during LSP attaching
     mappings = {
@@ -157,12 +158,21 @@ local config = {
         cmd = { '/n/w1-knguyen/clangd/clangd/clangd13/install/bin/clangd',
           '-j=3',
           '--background-index',
-          '--clang-tidy',
           '--completion-style=detailed',
           '--header-insertion=never',
-          '--header-insertion-decorators=0' }
+          '--header-insertion-decorators=0' },
+        -- on_attach = function(client, bufnr)
+        --   client.resolved_capabilities.document_formatting = false
+        -- end
       }
     },
+    formatting = {
+      format_on_save = false,
+      -- disabled = {
+      --   "clangd",
+      --   "pyright"
+      -- }
+    }
   },
 
   -- Mapping data with "desc" stored directly by vim.keymap.set().
@@ -179,8 +189,14 @@ local config = {
       ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
       ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
       ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
-      ['<C-e>'] = {  "5<C-e>", desc = "scroll screen" },
-      ['<C-y>'] = {  "5<C-y>", desc = "scroll screen" },
+      ['<C-e>'] = { "5<C-e>", desc = "scroll screen" },
+      ['<C-y>'] = { "5<C-y>", desc = "scroll screen" },
+      ["<leader>1"] = { "1<C-w>w" },
+      ["<leader>2"] = { "2<C-w>w" },
+      ["<leader>3"] = { "3<C-w>w" },
+      ["<leader>4"] = { "4<C-w>w" },
+      ["<leader>5"] = { "5<C-w>w" },
+      ["<leader>6"] = { "6<C-w>w" },
       -- quick save
       -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     },
@@ -206,7 +222,9 @@ local config = {
       --     require("lsp_signature").setup()
       --   end,
       -- },
-      "mtdl9/vim-log-highlighting"
+      "mtdl9/vim-log-highlighting",
+      "ojroques/vim-oscyank",
+      "RRethy/vim-illuminate"
 
       -- We also support a key value style plugin definition similar to NvChad:
       -- ["ray-x/lsp_signature.nvim"] = {
@@ -215,6 +233,48 @@ local config = {
       --     require("lsp_signature").setup()
       --   end,
       -- },
+    },
+    ["RRethy/vim-illuminate"] = {
+      -- providers: provider used to get references in the buffer, ordered by priority
+      providers = {
+        'lsp',
+        'treesitter',
+        'regex',
+      },
+      -- delay: delay in milliseconds
+      delay = 100,
+      -- filetype_overrides: filetype specific overrides.
+      -- The keys are strings to represent the filetype while the values are tables that
+      -- supports the same keys passed to .configure except for filetypes_denylist and filetypes_allowlist
+      filetype_overrides = {},
+      -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
+      filetypes_denylist = {
+        'dirvish',
+        'fugitive',
+      },
+      -- filetypes_allowlist: filetypes to illuminate, this is overriden by filetypes_denylist
+      filetypes_allowlist = {},
+      -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
+      modes_denylist = {},
+      -- modes_allowlist: modes to illuminate, this is overriden by modes_denylist
+      modes_allowlist = {},
+      -- providers_regex_syntax_denylist: syntax to not illuminate, this overrides providers_regex_syntax_allowlist
+      -- Only applies to the 'regex' provider
+      -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+      providers_regex_syntax_denylist = {},
+      -- providers_regex_syntax_allowlist: syntax to illuminate, this is overriden by providers_regex_syntax_denylist
+      -- Only applies to the 'regex' provider
+      -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+      providers_regex_syntax_allowlist = {},
+      -- under_cursor: whether or not to illuminate under the cursor
+      under_cursor = true,
+      -- large_file_cutoff: number of lines at which to use large_file_config
+      -- The `under_cursor` option is disabled when this cutoff is hit
+      large_file_cutoff = nil,
+      -- large_file_config: config to use for large files (based on large_file_cutoff).
+      -- Supports the same keys passed to .configure
+      -- If nil, vim-illuminate will be disabled for large files.
+      large_file_overrides = nil,
     },
     -- All other entries override the require("<key>").setup({...}) call for default plugins
     ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
@@ -245,6 +305,14 @@ local config = {
     treesitter = { -- overrides `require("treesitter").setup(...)`
       -- ensure_installed = { "lua" },
     },
+    ["neo-tree"] = {
+      window = {
+        mappings = {
+          ["/"] = "noop"
+        }
+      }
+    }
+    ,
     -- use mason-lspconfig to configure LSP installations
     ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
       -- ensure_installed = { "sumneko_lua" },
@@ -305,6 +373,12 @@ local config = {
   polish = function()
     vim.opt.foldmethod = 'expr'
     vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+    vim.opt.autoindent = true
+    vim.opt.expandtab = true
+    vim.opt.tabstop = 4
+    vim.opt.softtabstop = 4
+    vim.opt.shiftwidth = 4
+    vim.opt.smartindent = true
     vim.wo.wrap = true
     vim.wo.linebreak = true
     vim.wo.list = false
