@@ -167,7 +167,7 @@ local config = {
       }
     },
     formatting = {
-      format_on_save = false,
+      format_on_save = true,
       -- disabled = {
       --   "clangd",
       --   "pyright"
